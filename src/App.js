@@ -1,9 +1,16 @@
-import logo from './logo.svg';
-
+import Footer from './components/Footer';
+import Header from './components/Header';
+import { Container } from 'react-bootstrap';
 function App() {
   return (
     <div className="App">
-      louis vuitton
+      <Header/>
+      <main>
+        <Container>
+          <h1>Welcome</h1>
+        </Container>
+      </main>
+      <Footer/>
     </div>
   );
 }
