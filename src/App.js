@@ -2,18 +2,24 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import { Container } from 'react-bootstrap';
 import HomePage from './pages/HomePage';
+import ProductPage from './pages/ProductPage';
+import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 function App() {
   return (
-    <div className="App">
+    <Router>
       <Header/>
-      <main>
+      <main className='py-3'>
         <Container>
-          <HomePage/>
+          <Routes>
+          <Route path='/'element={<HomePage/>}/>
+          <Route path='/product/:id' element={<ProductPage/>}/>
+          </Routes>
         </Container>
       </main>
       <Footer/>
-    </div>
+    </Router>
   );
 }
 
 export default App;
+ 
