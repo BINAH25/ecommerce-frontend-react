@@ -3,6 +3,7 @@ import {Row,Col} from 'react-bootstrap'
 import Product from '../components/Product'
 import { useDispatch,useSelector } from 'react-redux'
 import { listProducts } from '../action/ProductActions'
+import Loader from '../components/Loader'
 const HomePage = () => {
   const dispatch = useDispatch()
   const productList = useSelector(state => state.productList)
@@ -14,7 +15,7 @@ const HomePage = () => {
     <div>
       <h1>Latest product</h1>
       {
-        loading ? <h2>Loading......</h2>
+        loading ? <Loader />
         : error ? <h3>{error}</h3>
         :
         <Row>
