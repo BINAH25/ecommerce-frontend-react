@@ -2,23 +2,32 @@ import React ,{useState,useEffect}from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Row,Col,Image,ListGroup,Button,Card } from 'react-bootstrap'
 import Rating from '../components/Rating'
-import axios from 'axios'
+import { useDispatch,useSelector } from 'react-redux'
+import { detailProduct } from '../action/ProductActions'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 const ProductPage = () => {
     const params = useParams();
     const id = params.id;
-    const [product,setProoduct] = useState([])
-
+    const dispatch = useDispatch()
+    const productDetails = useSelector(state => state.productDetail)
+    const {loading,error,product} = productDetails
+    ///
     useEffect(()=>{
-        getProduct()
+        dispatch(detailProduct(id))
     },[id])
-    let getProduct = async ()=>{
-        let res = await axios.get(`/api/products/${id}/`)
-        setProoduct(res.data)
-    }
   return (
     <div>
         <Link to='/' className='btn btn-light my-3'> Go Back</Link>
-        <Row>
+        {
+            loading
+            ? <Loader/>
+            : error
+                ? <Message variant='danger'>{error}</Message>
+
+            :
+            (
+                <Row>
             <Col md={6}>
             <Image src={product.image} alt={product.name} fluis />
             </Col>
@@ -65,6 +74,9 @@ const ProductPage = () => {
                 </Card>
             </Col>
         </Row>
+            )
+        }
+        
     </div>
   )
 }
