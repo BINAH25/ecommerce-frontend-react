@@ -5,24 +5,6 @@ import {
     USER_LOGOUT
 } from '../constantants/UserConstants'
 import axios from 'axios'
-export const listProducts = () => async (dispatch)=>{
-    try {
-        dispatch({type:PRODUCT_LIST_REQUEST})
-        const {data} = await axios.get('/api/products/')
-        dispatch({
-            type: PRODUCT_LIST_SUCCESS,
-            payload: data
-        })
-    } catch (error) {
-        dispatch({
-            type:PRODUCT_LIST_FAIL,
-            payload: error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message
-        })
-        
-    }
-}
 
 export const login = (email,password) => async(dispatch)=>{
     try {
@@ -43,7 +25,7 @@ export const login = (email,password) => async(dispatch)=>{
         })
         localStorage.setItem('userInfo',JSON.stringify(data))
     } catch (error) {
-        dispatch({
+          dispatch({
             type:USER_LOGIN_FAIL,
             payload: error.response && error.response.data.details
             ? error.response.data.details
